@@ -1,0 +1,40 @@
+/*******************************************************/
+// P5.play: Geometry_Dash
+// Create a sprite
+// Written by ??? 
+/*******************************************************/
+    console.log("%c Geometry_Dash", "color: blue;");
+
+    const playerHeight = 50
+    const playerWidth = 50
+/*******************************************************/
+// setup()
+/*******************************************************/
+    function setup() {
+        console.log("setup: ");
+        cnv = new Canvas(windowWidth, windowHeight);
+        player = new Sprite(200, 200, playerWidth, playerHeight, 'd');
+        player.color = 'yellow';
+  
+        floor = new Sprite (0, height, windowWidth*2, 15, 'k');
+        floor.color = 'brown';
+        
+        world.gravity.y = 10;
+        
+        document.addEventListener("keydown", function(event) {
+            console.log = "key pressed"
+        if (event.code === 'ArrowLeft') {
+         }
+        }
+    }
+
+/*******************************************************/
+// draw()
+/*******************************************************/
+    function draw() {
+     background('Blue'); 
+    }
+
+/*******************************************************/
+//  END OF APP
+/*******************************************************/
