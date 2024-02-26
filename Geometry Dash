@@ -19,13 +19,16 @@
         floor = new Sprite (0, height, windowWidth*2, 15, 'k');
         floor.color = 'brown';
         
-        world.gravity.y = 10;
+        world.gravity.y = 80;
         
-        document.addEventListener("keydown", function(event) {
-            console.log = "key pressed"
-        if (event.code === 'ArrowLeft') {
-         }
-        }
+        document.addEventListener("keydown",
+        function(event) {
+            console.log("Key pressed" + player.y);
+            if(player.y > 184){// 184 found from testing - floor level //
+            console.log = ("Key pressed");
+            player.vel.y = -20;
+            }
+        });
     }
 
 /*******************************************************/
