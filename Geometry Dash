@@ -5,37 +5,56 @@
 /*******************************************************/
     console.log("%c Geometry_Dash", "color: blue;");
 
-    const playerHeight = 50
-    const playerWidth = 50
+    const screenWidth = 600;
+    const screenHeight = 300;
+    
+    const playerWidth = 50;
+    const playerHeight = 50;
+    
+    const obstacleWidth = playerWidth;
+    const obstacleHeight = playerHeight;
+    
+    var obstacles;
 /*******************************************************/
 // setup()
 /*******************************************************/
-    function setup() {
-        console.log("setup: ");
-        cnv = new Canvas(windowWidth, windowHeight);
-        player = new Sprite(200, 200, playerWidth, playerHeight, 'd');
-        player.color = 'yellow';
+  function setup() {
+    console.log("setup: ");
+    cnv = new Canvas(screenWidth, screenHeight);
+    player = new Sprite(200, 200, playerWidth, playerHeight, 'd');
+    player.color = 'yellow';
+    
+    obstacle = new sprite(screenWidth-100, screenHeight - obstacleWidth/2, obstacleWidth, obstacleHeight,'k');
+    obstacle.color = 'green';
+    obstacle.vel.x = -10;
+    
+    obstacles = new Group();
+    obstacles.add(obstacles);
   
-        floor = new Sprite (0, height, windowWidth*2, 15, 'k');
-        floor.color = 'brown';
+    floor = new Sprite (0, height, windowWidth*2, 15, 'k');
+    floor.color = 'brown';
         
-        world.gravity.y = 80;
-        
-        document.addEventListener("keydown",
-        function(event) {
-            console.log("Key pressed" + player.y);
-            if(player.y > 184){// 184 found from testing - floor level //
-            console.log = ("Key pressed");
-            player.vel.y = -20;
-            }
-        });
+    world.gravity.y = 80;
+      
+    document.addEventListener("keydown", function(event) {
+        console.log("Key pressed! + player.y")
+    if (player.y > 184) {
+        console.log("Key pressed!");
+        player.vel.y = -20;
     }
+  });
+  player.collides(obstacles, youDead)
+  }
 
 /*******************************************************/
 // draw()
 /*******************************************************/
     function draw() {
-     background('Blue'); 
+    background('Blue'); 
+    }
+    
+    function youDead(_player, _obstacle) {
+        console.log(YouDied)
     }
 
 /*******************************************************/
