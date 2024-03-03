@@ -13,57 +13,101 @@
     
     const obstacleWidth = playerWidth;
     const obstacleHeight = playerHeight;
+    
     var spawnDist = 0+1;
     var nextSpawn = 0;
+    var score = 0;
+    var screenSelector = "start";
     var obstacles;
 /*******************************************************/
 // setup()
 /*******************************************************/
-  function setup() {
-    console.log("setup: ");
-    cnv = new Canvas(screenWidth, screenHeight);
-    player = new Sprite(playerWidth*1.2, screenHeight/2, playerWidth, playerHeight, 'd');
-    player.color = color("yellow");
+    function setup() {
+        console.log("setup: ");
+        cnv = new Canvas(screenWidth, screenHeight);
+        player = new Sprite(playerWidth*1.2, screenHeight/2, playerWidth, playerHeight, 'd');
+        player.color = color("yellow");
     
-    obstacles = new Group();
+        obstacles = new Group();
   
-    floor = new Sprite (screenWidth/2, screenHeight, screenWidth, 4, 's');
-    floor.color = color("brown");
+        floor = new Sprite (screenWidth/2, screenHeight, screenWidth, 4, 's');
+        floor.color = color("brown");
         
-    world.gravity.y = 80;
+        world.gravity.y = 80;
       
-    document.addEventListener("keydown", function(event) {
+            document.addEventListener("keydown", function(event) {
         console.log("Key pressed! + player.y");
+        screenSelector = 'game';
         
             if (player.y > 250) {
             console.log("Key pressed!");
             player.vel.y = -20;
-        }
-  });
-  player.collides(obstacles, youDead)
-  }
+            }
+        });
+        
+        player.collides(obstacles, youDead)
+    }
 
 /*******************************************************/
 // draw()
 /*******************************************************/
     function draw() {
-        background('Blue'); 
-        if(frameCount > nextSpawn){
-        newObstacle();
-        nextSpawn = frameCount + random(10,100)
+        if(screenSelector == "game"){
+            gameScreen();
+        }else if(screenSelector == "end"){
+            endScreen();
+        }else if(screenSelector == "start"){
+            startScreen();
+        }else {
+            text("wrong screen - you shouldnt get here", 50, 50);
+            console.log("wrong screen - you shouldnt get here")
         }
     }
     
     function newObstacle(){
-        
         obstacle = new Sprite((screenWidth -100), screenHeight - obstacleHeight/2, obstacleWidth, obstacleHeight, 'k');
         obstacle.color = color("lightgreen");
         obstacle.vel.x = -10;
+        obstacles.add(obstacle);
     }
+    
     function youDead(_player, _obstacle) {
-        console.log(YouDied)
+        screenSelector = "end";
     }
+    
+    function startScreen(){
+        console.log("Start screen")
+        background("white");
 
+        allSprites.visible = false;
+        textSize(32);
+        fill(255);
+        stroke(0);
+        strokeWeight(4);
+        text("Welcome to the game", 50, 50);
+        textSize(24);
+        text("Press any key to start", 50, 110);
+        }
+
+    function gameScreen(){
+        background('Blue'); 
+        allSprites.visible = true;
+        score++;
+        if(frameCount> nextSpawn){
+            newObstacle();
+            nextSpawn = frameCount + random(10,100);
+        }
+        
+        textSize(32);
+        fill(255);
+        stroke(0);
+        strokeWeight(4);
+        text(score, 50, 50);
+    }
+    
+    function endScreen(){
+        console.log("YouDied")
+    }
 /*******************************************************/
 //  END OF APP
 /*******************************************************/
